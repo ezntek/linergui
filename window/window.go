@@ -17,6 +17,7 @@ type Window struct {
 	content rl.Rectangle
 	okTextColor bool
 	title string
+	HasFocus bool
 }
 
 func (w *Window) Draw() {
@@ -35,7 +36,7 @@ func (w *Window) Draw() {
 }
 
 func (w *Window) Update() {
-	if !w.IsHidden {
+	if !w.IsHidden && w.HasFocus{
 		w.frames++
 		if w.frames % 20 == 0 {
 			w.okTextColor = !w.okTextColor
@@ -74,5 +75,6 @@ func NewWindow(posx float32, posy float32, width float32, height float32, border
 		topBar: rl.NewRectangle(posx - borderWidth, posy + borderWidth, width - borderWidth, 30),
 		borderColor: borderCol,
 		IsHidden: false,
+		HasFocus: false,
 	}
 }
